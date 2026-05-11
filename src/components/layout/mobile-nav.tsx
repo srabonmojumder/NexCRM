@@ -1,11 +1,12 @@
 "use client";
 
-import { Menu, Sparkles, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { Logo } from "@/components/common/logo";
 import { cn } from "@/lib/utils";
 import { navSections } from "./sidebar-nav";
 
@@ -42,18 +43,8 @@ export function MobileNav() {
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
               className="fixed left-0 top-0 bottom-0 z-50 w-72 glass-strong border-r border-white/10 lg:hidden"
             >
-              <div className="flex items-center justify-between px-5 py-5">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-gradient">
-                    <Sparkles className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-display font-bold text-lg leading-none">NexCRM</p>
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
-                      Enterprise
-                    </p>
-                  </div>
-                </div>
+              <div className="flex items-center justify-between px-4 py-4">
+                <Logo size="sm" priority className="h-12" />
                 <Button
                   size="icon-sm"
                   variant="ghost"

@@ -19,7 +19,7 @@ export function DashboardLayout({ children }: { children: React.ReactNode }) {
       <main
         className={cn(
           "transition-[padding] duration-300 ease-out px-4 lg:px-6 pb-8",
-          collapsed ? "lg:pl-[100px]" : "lg:pl-[284px]"
+          collapsed ? "lg:pl-[104px]" : "lg:pl-[288px]"
         )}
       >
         <Topbar />

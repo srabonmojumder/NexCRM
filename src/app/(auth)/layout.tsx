@@ -1,5 +1,5 @@
-import { Sparkles } from "lucide-react";
 import Link from "next/link";
+import { Logo } from "@/components/common/logo";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -8,11 +8,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       <div className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 h-[800px] w-[1400px] -z-10 bg-radial-fade" />
 
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden p-10 flex-col">
-        <Link href="/" className="flex items-center gap-3 z-10">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-gradient">
-            <Sparkles className="h-4 w-4 text-white" />
-          </div>
-          <span className="font-display font-bold text-xl">NexCRM</span>
+        <Link href="/" className="z-10">
+          <Logo size="md" priority />
         </Link>
 
         <div className="flex-1 flex items-center">
@@ -51,11 +48,8 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
 
       <div className="flex-1 flex flex-col">
         <div className="flex lg:hidden items-center justify-between p-6">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gradient">
-              <Sparkles className="h-4 w-4 text-white" />
-            </div>
-            <span className="font-display font-bold">NexCRM</span>
+          <Link href="/">
+            <Logo size="sm" priority />
           </Link>
         </div>
         <div className="flex-1 flex items-center justify-center p-6">
