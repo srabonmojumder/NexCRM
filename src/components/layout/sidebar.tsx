@@ -52,8 +52,8 @@ export function Sidebar() {
 
           <div
             className={cn(
-              "flex items-center pt-4 pb-3 transition-[padding] duration-300",
-              sidebarCollapsed ? "px-0 justify-center" : "px-4"
+              "flex items-center pt-5 pb-4 transition-[padding] duration-300",
+              sidebarCollapsed ? "px-0 justify-center" : "px-5 justify-start"
             )}
           >
             <AnimatePresence mode="wait" initial={false}>
@@ -74,9 +74,9 @@ export function Sidebar() {
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: -8 }}
                   transition={{ duration: 0.22 }}
-                  className="min-w-0"
+                  className="flex min-w-0 items-center"
                 >
-                  <Logo size="sm" priority className="h-12" />
+                  <Logo size="md" priority className="h-14 w-auto max-w-[180px]" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -112,7 +112,7 @@ export function Sidebar() {
                       <Link
                         href={item.href}
                         className={cn(
-                          "group relative flex items-center text-sm font-medium transition-colors duration-200 rounded-xl",
+                          "group relative flex items-center text-sm font-medium transition-colors duration-200 rounded-[5px]",
                           sidebarCollapsed
                             ? "h-11 w-11 mx-auto justify-center"
                             : "gap-3 px-3 py-2.5",
@@ -129,7 +129,7 @@ export function Sidebar() {
                                 : "active-bg-expanded"
                             }
                             className={cn(
-                              "absolute inset-0 rounded-xl pointer-events-none -z-10",
+                              "absolute inset-0 rounded-[5px] pointer-events-none -z-10",
                               "bg-gradient-to-r from-primary/15 via-primary/[0.08] to-transparent",
                               "ring-1 ring-inset ring-primary/15"
                             )}
