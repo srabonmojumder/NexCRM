@@ -65,6 +65,21 @@ export const revenueSeries = [
   { month: "Dec", revenue: 104800, expenses: 41200, profit: 63600 },
 ];
 
+export const salesAnalyticsSeries = [
+  { month: "Jan", online: 11200, marketing: 10400 },
+  { month: "Feb", online: 13400, marketing: 48600 },
+  { month: "Mar", online: 19800, marketing: 22400 },
+  { month: "Apr", online: 32100, marketing: 30200 },
+  { month: "May", online: 13200, marketing: 37400 },
+  { month: "Jun", online: 26800, marketing: 40100 },
+  { month: "Jul", online: 24300, marketing: 38200 },
+  { month: "Aug", online: 44200, marketing: 20400 },
+  { month: "Sep", online: 30100, marketing: 21300 },
+  { month: "Oct", online: 34600, marketing: 33200 },
+  { month: "Nov", online: 22400, marketing: 38400 },
+  { month: "Dec", online: 12600, marketing: 39000 },
+];
+
 export const trafficSources = [
   { name: "Organic Search", value: 38, fill: "#6086ff" },
   { name: "Direct", value: 24, fill: "#8b5cf6" },

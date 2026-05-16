@@ -30,7 +30,7 @@ export function Sidebar() {
         style={{ width: sidebarCollapsed ? COLLAPSED_WIDTH : EXPANDED_WIDTH }}
         className="fixed left-3 top-3 bottom-3 z-40 hidden lg:flex transition-[width] duration-300 ease-out motion-reduce:transition-none"
       >
-        <div className="glass-strong relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-foreground/10 shadow-2xl">
+        <div className="glass-strong relative flex h-full w-full flex-col  rounded-2xl border border-foreground/10 shadow-2xl">
           <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
 
           {/* Collapse / expand toggle */}

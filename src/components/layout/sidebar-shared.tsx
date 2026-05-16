@@ -38,7 +38,7 @@ function NavRow({ item, active, collapsed, onNavigate }: NavRowProps) {
       onClick={onNavigate}
       aria-current={active ? "page" : undefined}
       className={cn(
-        "group relative flex items-center rounded-xl text-sm font-medium",
+        "group relative flex items-center rounded-[5px] text-sm font-medium",
         "transition-colors duration-200",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/40",
         collapsed ? "h-10 w-10 justify-center" : "h-10 gap-3 px-2.5",

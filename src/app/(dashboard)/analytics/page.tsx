@@ -23,6 +23,7 @@ import { ConversionChart } from "@/components/charts/conversion-chart";
 import { FunnelChart } from "@/components/charts/funnel-chart";
 import { GoalsChart } from "@/components/charts/goals-chart";
 import { RevenueChart } from "@/components/charts/revenue-chart";
+import { SalesAnalyticsChart } from "@/components/charts/sales-analytics-chart";
 import { TrafficChart } from "@/components/charts/traffic-chart";
 import { PageHeader } from "@/components/common/page-header";
 import { cn, formatCompact } from "@/lib/utils";
@@ -97,6 +98,26 @@ export default function AnalyticsPage() {
             );
           })}
         </div>
+      </Card>
+
+      <Card variant="glass" className="overflow-hidden">
+        <CardHeader>
+          <div className="flex items-start justify-between">
+            <div>
+              <CardTitle>Sales Analytics</CardTitle>
+              <CardDescription>
+                Online vs marketing sales across the year
+              </CardDescription>
+            </div>
+            <Badge variant="success">
+              <TrendingUp className="h-3 w-3" />
+              +9.6% MoM
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="h-[280px] sm:h-[360px]">
+          <SalesAnalyticsChart />
+        </CardContent>
       </Card>
 
       <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
