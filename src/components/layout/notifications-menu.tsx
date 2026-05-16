@@ -59,7 +59,7 @@ export function NotificationsMenu() {
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[380px] p-0" align="end">
-        <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-foreground/5">
           <div>
             <p className="font-display font-semibold">Notifications</p>
             <p className="text-xs text-muted-foreground mt-0.5">
@@ -85,7 +85,7 @@ export function NotificationsMenu() {
                   transition={{ delay: idx * 0.03 }}
                   onClick={() => markRead(n.id)}
                   className={cn(
-                    "group relative flex gap-3 rounded-lg p-3 cursor-pointer transition-colors hover:bg-white/5",
+                    "group relative flex gap-3 rounded-lg p-3 cursor-pointer transition-colors hover:bg-foreground/5",
                     !n.read && "bg-primary/[0.04]"
                   )}
                 >
@@ -134,7 +134,7 @@ export function NotificationsMenu() {
           </ul>
         </ScrollArea>
 
-        <div className="border-t border-white/5 p-2">
+        <div className="border-t border-foreground/5 p-2">
           <Button asChild variant="ghost" size="sm" className="w-full">
             <Link href="/notifications">View all notifications</Link>
           </Button>

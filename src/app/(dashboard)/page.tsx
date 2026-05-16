@@ -42,13 +42,19 @@ export default function DashboardPage() {
         description="Here's what's happening across your pipeline today."
         actions={
           <>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Filter className="h-4 w-4" />
               Filter
             </Button>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Filter">
+              <Filter className="h-4 w-4" />
+            </Button>
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Download className="h-4 w-4" />
               Export
+            </Button>
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Export">
+              <Download className="h-4 w-4" />
             </Button>
             <Button variant="gradient" size="sm">
               <Zap className="h-4 w-4" />
@@ -58,7 +64,7 @@ export default function DashboardPage() {
         }
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {stats.map((s, i) => (
           <StatCard
             key={s.id}
@@ -92,7 +98,7 @@ export default function DashboardPage() {
               </span>
             </div>
           </CardHeader>
-          <CardContent className="h-[320px] pt-2">
+          <CardContent className="h-[260px] sm:h-[320px] pt-2">
             <RevenueChart />
           </CardContent>
         </Card>
@@ -162,7 +168,7 @@ export default function DashboardPage() {
             <CardTitle>Channel performance</CardTitle>
             <CardDescription>Deals closed by source</CardDescription>
           </CardHeader>
-          <CardContent className="h-[260px] pt-2">
+          <CardContent className="h-[240px] sm:h-[260px] pt-2">
             <ChannelChart />
           </CardContent>
         </Card>
@@ -172,7 +178,7 @@ export default function DashboardPage() {
             <CardTitle>Quarterly goals</CardTitle>
             <CardDescription>Tracking toward Q2 targets</CardDescription>
           </CardHeader>
-          <CardContent className="h-[260px]">
+          <CardContent className="h-[240px] sm:h-[260px]">
             <GoalsChart />
           </CardContent>
         </Card>
@@ -192,7 +198,7 @@ export default function DashboardPage() {
           </Button>
         </CardHeader>
         <CardContent>
-          <div className="h-[420px] rounded-xl overflow-hidden border border-white/5">
+          <div className="h-[280px] sm:h-[360px] lg:h-[420px] rounded-xl overflow-hidden border border-foreground/5">
             <WorldMapLoader />
           </div>
         </CardContent>

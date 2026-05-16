@@ -65,7 +65,7 @@ export default function NotificationsPage() {
             <Card
               variant="glass"
               className={cn(
-                "p-4 group transition-colors hover:bg-white/[0.04]",
+                "p-4 group transition-colors hover:bg-foreground/[0.04]",
                 !n.read && "border-l-2 border-l-primary"
               )}
             >
@@ -132,7 +132,7 @@ export default function NotificationsPage() {
       />
 
       <Tabs defaultValue="all" className="space-y-4">
-        <TabsList>
+        <TabsList className="overflow-x-auto scrollbar-thin max-w-full">
           <TabsTrigger value="all">All ({items.length})</TabsTrigger>
           <TabsTrigger value="unread">Unread ({unread})</TabsTrigger>
           <TabsTrigger value="success">Wins</TabsTrigger>

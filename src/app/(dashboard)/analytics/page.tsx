@@ -46,7 +46,7 @@ export default function AnalyticsPage() {
         actions={
           <>
             <Select defaultValue="30">
-              <SelectTrigger className="w-[140px]">
+              <SelectTrigger className="w-[120px] sm:w-[140px]">
                 <CalendarDays className="h-4 w-4 mr-2 text-muted-foreground" />
                 <SelectValue />
               </SelectTrigger>
@@ -57,16 +57,19 @@ export default function AnalyticsPage() {
                 <SelectItem value="365">Last year</SelectItem>
               </SelectContent>
             </Select>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Download className="h-4 w-4" />
               Export PDF
+            </Button>
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Export PDF">
+              <Download className="h-4 w-4" />
             </Button>
           </>
         }
       />
 
       <Card variant="glass" className="overflow-hidden">
-        <div className="grid grid-cols-2 lg:grid-cols-6 divide-x divide-white/5">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-foreground/5">
           {microStats.map((s) => {
             const positive = s.delta >= 0;
             return (
@@ -110,7 +113,7 @@ export default function AnalyticsPage() {
               </Badge>
             </div>
           </CardHeader>
-          <CardContent className="h-[340px]">
+          <CardContent className="h-[260px] sm:h-[340px]">
             <RevenueChart />
           </CardContent>
         </Card>
@@ -142,7 +145,7 @@ export default function AnalyticsPage() {
             <CardTitle>Conversion rate by stage</CardTitle>
             <CardDescription>Weekly funnel performance</CardDescription>
           </CardHeader>
-          <CardContent className="h-[260px]">
+          <CardContent className="h-[240px] sm:h-[260px]">
             <ConversionChart />
           </CardContent>
         </Card>
@@ -154,7 +157,7 @@ export default function AnalyticsPage() {
             <CardTitle>Channel performance</CardTitle>
             <CardDescription>Deals closed per channel</CardDescription>
           </CardHeader>
-          <CardContent className="h-[280px]">
+          <CardContent className="h-[240px] sm:h-[280px]">
             <ChannelChart />
           </CardContent>
         </Card>
@@ -169,7 +172,7 @@ export default function AnalyticsPage() {
               <Sparkles className="h-4 w-4 text-primary" />
             </div>
           </CardHeader>
-          <CardContent className="h-[280px]">
+          <CardContent className="h-[240px] sm:h-[280px]">
             <GoalsChart />
           </CardContent>
         </Card>

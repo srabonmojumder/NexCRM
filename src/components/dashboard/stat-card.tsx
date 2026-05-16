@@ -68,33 +68,33 @@ export function StatCard({
     >
       <Card
         variant="glass"
-        className="relative overflow-hidden p-5 card-hover group"
+        className="relative overflow-hidden p-4 sm:p-5 card-hover group"
       >
-        <div className="flex items-start justify-between">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
+        <div className="flex items-start justify-between gap-2">
+          <div className="min-w-0">
+            <p className="text-[10px] sm:text-xs font-medium uppercase tracking-wider text-muted-foreground truncate">
               {label}
             </p>
-            <p className="font-display text-2xl font-bold tracking-tight mt-2">
+            <p className="font-display text-xl sm:text-2xl font-bold tracking-tight mt-1.5 sm:mt-2 truncate">
               {display}
             </p>
           </div>
           {Icon && (
             <div
               className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg",
+                "flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg shrink-0",
                 a.gradient
               )}
             >
-              <Icon className="h-5 w-5" />
+              <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
             </div>
           )}
         </div>
 
-        <div className="flex items-end justify-between mt-4">
+        <div className="flex items-end justify-between mt-3 sm:mt-4 gap-2">
           <div
             className={cn(
-              "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold",
+              "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] sm:text-xs font-semibold shrink-0",
               positive
                 ? "bg-success/10 text-success"
                 : "bg-destructive/10 text-destructive"
@@ -108,7 +108,7 @@ export function StatCard({
             {formatPercent(delta)}
           </div>
 
-          <div className="h-10 w-24 -mr-2">
+          <div className="h-8 w-16 sm:h-10 sm:w-24 -mr-1 sm:-mr-2 shrink-0">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data} margin={{ top: 4, right: 0, left: 0, bottom: 0 }}>
                 <defs>

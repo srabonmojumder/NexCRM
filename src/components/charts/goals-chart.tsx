@@ -14,7 +14,7 @@ export function GoalsChart() {
       {goalProgress.map((g) => (
         <div
           key={g.name}
-          className="relative flex flex-col items-center justify-center rounded-xl bg-white/5 p-3"
+          className="relative flex flex-col items-center justify-center rounded-xl bg-foreground/5 p-3"
         >
           <div className="h-20 w-20 relative">
             <ResponsiveContainer width="100%" height="100%">
@@ -32,7 +32,7 @@ export function GoalsChart() {
                   dataKey="value"
                   cornerRadius={20}
                   fill={g.fill}
-                  background={{ fill: "rgba(255,255,255,0.06)" }}
+                  background={{ fill: "hsl(var(--foreground) / 0.08)" }}
                 />
               </RadialBarChart>
             </ResponsiveContainer>

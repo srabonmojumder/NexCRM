@@ -29,13 +29,19 @@ export default function PipelinePage() {
         description="Drag and drop deals across stages — track every opportunity in motion."
         actions={
           <>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Filter className="h-4 w-4" />
               Filter
             </Button>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Filter">
+              <Filter className="h-4 w-4" />
+            </Button>
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Settings2 className="h-4 w-4" />
               Customize
+            </Button>
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Customize">
+              <Settings2 className="h-4 w-4" />
             </Button>
             <Button variant="gradient" size="sm">
               <Plus className="h-4 w-4" />
@@ -45,7 +51,7 @@ export default function PipelinePage() {
         }
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         <Card variant="glass" className="p-4">
           <p className="text-xs uppercase tracking-wider text-muted-foreground font-medium">
             Open pipeline

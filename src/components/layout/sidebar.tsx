@@ -1,6 +1,5 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -14,28 +13,36 @@ import {
 import { Logo, LogoMark } from "@/components/common/logo";
 import { cn } from "@/lib/utils";
 import { useUIStore } from "@/store/ui-store";
-import { navSections } from "./sidebar-nav";
+import { SidebarNavList } from "./sidebar-shared";
+
+// Kept in sync with the main padding in dashboard-layout.tsx
+// (left-3 gap + width + right gap → lg:pl-[104px] / lg:pl-[288px]).
+const EXPANDED_WIDTH = 264;
+const COLLAPSED_WIDTH = 80;
 
 export function Sidebar() {
   const pathname = usePathname();
   const { sidebarCollapsed, toggleSidebar } = useUIStore();
 
   return (
-    <TooltipProvider delayDuration={150}>
-      <motion.aside
-        animate={{ width: sidebarCollapsed ? 80 : 264 }}
-        transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-        className="fixed left-3 top-3 bottom-3 z-40 hidden lg:flex"
+    <TooltipProvider delayDuration={200}>
+      <aside
+        style={{ width: sidebarCollapsed ? COLLAPSED_WIDTH : EXPANDED_WIDTH }}
+        className="fixed left-3 top-3 bottom-3 z-40 hidden lg:flex transition-[width] duration-300 ease-out motion-reduce:transition-none"
       >
-        <div className="glass-strong relative flex h-full w-full flex-col rounded-2xl border-white/10 shadow-2xl">
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/20 to-transparent" />
+        <div className="glass-strong relative flex h-full w-full flex-col overflow-hidden rounded-2xl border border-foreground/10 shadow-2xl">
+          <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/20 to-transparent" />
 
+          {/* Collapse / expand toggle */}
           <Tooltip>
             <TooltipTrigger asChild>
               <button
+                type="button"
                 onClick={toggleSidebar}
-                aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
-                className="absolute -right-3 top-7 z-20 flex h-6 w-6 items-center justify-center rounded-full bg-card border border-white/10 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-primary/10 shadow-md transition-all"
+                aria-label={
+                  sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"
+                }
+                className="absolute -right-3 top-7 z-20 grid h-6 w-6 place-items-center rounded-full border border-foreground/10 bg-card text-muted-foreground shadow-md transition-colors hover:border-primary/40 hover:bg-primary/10 hover:text-foreground"
               >
                 <ChevronLeft
                   className={cn(
@@ -50,222 +57,76 @@ export function Sidebar() {
             </TooltipContent>
           </Tooltip>
 
+          {/* Header / logo */}
           <div
             className={cn(
-              "flex items-center pt-5 pb-4 transition-[padding] duration-300",
-              sidebarCollapsed ? "px-0 justify-center" : "px-5 justify-start"
+              "flex h-[72px] shrink-0 items-center",
+              sidebarCollapsed ? "justify-center px-0" : "px-5"
             )}
           >
-            <AnimatePresence mode="wait" initial={false}>
+            <Link
+              href="/"
+              className="flex items-center"
+              aria-label="NexCRM home"
+            >
               {sidebarCollapsed ? (
-                <motion.div
-                  key="mark"
-                  initial={{ opacity: 0, scale: 0.85 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.85 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <LogoMark size="md" priority />
-                </motion.div>
+                <LogoMark size="md" priority />
               ) : (
-                <motion.div
-                  key="full"
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -8 }}
-                  transition={{ duration: 0.22 }}
-                  className="flex min-w-0 items-center"
-                >
-                  <Logo size="md" priority className="h-14 w-auto max-w-[180px]" />
-                </motion.div>
+                <Logo
+                  size="md"
+                  priority
+                  className="h-11 w-auto max-w-[170px]"
+                />
               )}
-            </AnimatePresence>
+            </Link>
           </div>
 
-          <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin px-2 pb-3">
-            {navSections.map((section, idx) => (
-              <div key={idx} className="mb-4">
-                <div className="h-5 mb-1 px-3">
-                  <AnimatePresence>
-                    {section.label && !sidebarCollapsed && (
-                      <motion.p
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.18, delay: 0.05 }}
-                        className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70 leading-5"
-                      >
-                        {section.label}
-                      </motion.p>
-                    )}
-                  </AnimatePresence>
-                </div>
-
-                <ul className="space-y-0.5">
-                  {section.items.map((item) => {
-                    const active =
-                      pathname === item.href ||
-                      (item.href !== "/" && pathname.startsWith(item.href));
-                    const Icon = item.icon;
-
-                    const linkContent = (
-                      <Link
-                        href={item.href}
-                        className={cn(
-                          "group relative flex items-center text-sm font-medium transition-colors duration-200 rounded-[5px]",
-                          sidebarCollapsed
-                            ? "h-11 w-11 mx-auto justify-center"
-                            : "gap-3 px-3 py-2.5",
-                          active
-                            ? "text-foreground bg-primary/[0.12]"
-                            : "text-muted-foreground hover:text-foreground hover:bg-white/[0.05]"
-                        )}
-                      >
-                        {active && (
-                          <motion.span
-                            layoutId={
-                              sidebarCollapsed
-                                ? "active-bg-collapsed"
-                                : "active-bg-expanded"
-                            }
-                            className={cn(
-                              "absolute inset-0 rounded-[5px] pointer-events-none -z-10",
-                              "bg-gradient-to-r from-primary/15 via-primary/[0.08] to-transparent",
-                              "ring-1 ring-inset ring-primary/15"
-                            )}
-                            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                          />
-                        )}
-
-                        <Icon
-                          className={cn(
-                            "h-[18px] w-[18px] shrink-0 transition-colors duration-200",
-                            active
-                              ? "text-primary"
-                              : "text-muted-foreground group-hover:text-foreground"
-                          )}
-                        />
-
-                        <AnimatePresence>
-                          {!sidebarCollapsed && (
-                            <motion.span
-                              initial={{ opacity: 0, x: -6 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              exit={{ opacity: 0, x: -6 }}
-                              transition={{ duration: 0.18, delay: 0.04 }}
-                              className="flex-1 truncate flex items-center gap-2 min-w-0"
-                            >
-                              <span className="truncate">{item.label}</span>
-                              {item.badge && (
-                                <span
-                                  className={cn(
-                                    "ml-auto rounded-full px-1.5 py-0.5 text-[10px] font-semibold shrink-0",
-                                    active
-                                      ? "bg-primary/25 text-primary"
-                                      : "bg-white/10 text-muted-foreground group-hover:bg-primary/20 group-hover:text-primary"
-                                  )}
-                                >
-                                  {item.badge}
-                                </span>
-                              )}
-                            </motion.span>
-                          )}
-                        </AnimatePresence>
-
-                        {sidebarCollapsed && item.badge && (
-                          <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-primary ring-2 ring-card animate-pulse" />
-                        )}
-                      </Link>
-                    );
-
-                    return (
-                      <li key={item.href} className="relative">
-                        {active && !sidebarCollapsed && (
-                          <motion.span
-                            layoutId="sidebar-edge-bar"
-                            className="absolute -left-2 top-1/2 -translate-y-1/2 h-6 w-[3px] rounded-r-full bg-brand-gradient shadow-[0_0_12px_2px] shadow-primary/60 pointer-events-none z-10"
-                            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-                          />
-                        )}
-                        {sidebarCollapsed ? (
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              {linkContent}
-                            </TooltipTrigger>
-                            <TooltipContent
-                              side="right"
-                              className="font-medium"
-                              sideOffset={14}
-                            >
-                              {item.label}
-                              {item.badge && (
-                                <span className="ml-2 rounded-full bg-primary/20 px-1.5 py-0.5 text-[10px] text-primary">
-                                  {item.badge}
-                                </span>
-                              )}
-                            </TooltipContent>
-                          </Tooltip>
-                        ) : (
-                          linkContent
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
-              </div>
-            ))}
+          {/* Navigation */}
+          <nav className="flex-1 overflow-y-auto overflow-x-hidden scrollbar-thin px-3 pt-1 pb-3">
+            <SidebarNavList pathname={pathname} collapsed={sidebarCollapsed} />
           </nav>
 
-          <AnimatePresence initial={false}>
-            {!sidebarCollapsed ? (
-              <motion.div
-                key="upgrade-card"
-                initial={{ opacity: 0, y: 12, height: 0 }}
-                animate={{ opacity: 1, y: 0, height: "auto" }}
-                exit={{ opacity: 0, y: 8, height: 0 }}
-                transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="m-3 rounded-xl bg-gradient-to-br from-primary/15 via-violet-500/10 to-pink-500/10 p-4 border border-white/10 relative overflow-hidden">
-                  <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/20 blur-2xl" />
-                  <div className="absolute -left-4 -bottom-4 h-16 w-16 rounded-full bg-pink-500/15 blur-2xl" />
-                  <p className="font-display font-semibold text-sm relative">Upgrade to Pro</p>
-                  <p className="text-xs text-muted-foreground mt-1 leading-relaxed relative">
-                    Unlock AI insights, custom reports & priority support.
-                  </p>
-                  <Button size="sm" variant="gradient" className="mt-3 w-full relative">
-                    Upgrade plan
-                  </Button>
-                </div>
-              </motion.div>
+          {/* Upgrade footer */}
+          <div className="shrink-0 p-3">
+            {sidebarCollapsed ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    type="button"
+                    aria-label="Upgrade to Pro"
+                    className="relative mx-auto grid h-11 w-11 place-items-center rounded-xl border border-foreground/10 bg-gradient-to-br from-primary/20 via-violet-500/15 to-pink-500/15 transition-colors hover:border-primary/30"
+                  >
+                    <span className="gradient-text font-display text-[11px] font-bold">
+                      PRO
+                    </span>
+                    <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full bg-warning ring-2 ring-card" />
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent side="right" sideOffset={12}>
+                  Upgrade to Pro
+                </TooltipContent>
+              </Tooltip>
             ) : (
-              <motion.div
-                key="upgrade-mark"
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.22, delay: 0.05 }}
-                className="flex justify-center pb-4"
-              >
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <button
-                      aria-label="Upgrade to Pro"
-                      className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-primary/20 via-violet-500/15 to-pink-500/15 border border-white/10 hover:scale-105 hover:border-primary/30 transition-all"
-                    >
-                      <span className="font-display text-[11px] font-bold gradient-text">PRO</span>
-                      <span className="absolute -top-1 -right-1 h-2.5 w-2.5 rounded-full bg-warning ring-2 ring-card animate-pulse" />
-                    </button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right" sideOffset={14}>
-                    Upgrade to Pro
-                  </TooltipContent>
-                </Tooltip>
-              </motion.div>
+              <div className="relative overflow-hidden rounded-xl border border-foreground/10 bg-gradient-to-br from-primary/15 via-violet-500/10 to-pink-500/10 p-4">
+                <div className="pointer-events-none absolute -right-6 -top-6 h-20 w-20 rounded-full bg-primary/20 blur-2xl" />
+                <p className="relative font-display text-sm font-semibold">
+                  Upgrade to Pro
+                </p>
+                <p className="relative mt-1 text-xs leading-relaxed text-muted-foreground">
+                  Unlock AI insights, custom reports &amp; priority support.
+                </p>
+                <Button
+                  size="sm"
+                  variant="gradient"
+                  className="relative mt-3 w-full"
+                >
+                  Upgrade plan
+                </Button>
+              </div>
             )}
-          </AnimatePresence>
+          </div>
         </div>
-      </motion.aside>
+      </aside>
     </TooltipProvider>
   );
 }

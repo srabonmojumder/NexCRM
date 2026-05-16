@@ -31,25 +31,52 @@ const typeMap: Record<EventType, { tone: string; bg: string; border: string }> =
 };
 
 const hours = Array.from({ length: 12 }, (_, i) => 8 + i);
-const weekDays = [
-  { d: 10, label: "Sun" },
-  { d: 11, label: "Mon" },
-  { d: 12, label: "Tue" },
-  { d: 13, label: "Wed" },
-  { d: 14, label: "Thu" },
-  { d: 15, label: "Fri" },
-  { d: 16, label: "Sat" },
-];
+const dayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function startOfWeek(d: Date) {
+  const date = new Date(d.getFullYear(), d.getMonth(), d.getDate());
+  date.setDate(date.getDate() - date.getDay());
+  return date;
+}
+
+function isSameDay(a: Date, b: Date) {
+  return (
+    a.getFullYear() === b.getFullYear() &&
+    a.getMonth() === b.getMonth() &&
+    a.getDate() === b.getDate()
+  );
+}
 
 export default function CalendarPage() {
-  const [selected, setSelected] = useState<Date>(new Date(2026, 4, 10));
+  const [selected, setSelected] = useState<Date>(() => new Date());
 
-  const eventForCell = (day: number, hour: number) => {
+  const today = new Date();
+  const weekStart = startOfWeek(selected);
+  const weekDays = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(weekStart);
+    d.setDate(weekStart.getDate() + i);
+    return { date: d, label: dayLabels[i] };
+  });
+  const weekEnd = weekDays[6].date;
+  const weekRangeLabel = `Week of ${weekStart.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  })} – ${weekEnd.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  })}`;
+
+  const eventForCell = (day: Date, hour: number) => {
     return events.find((e) => {
       const d = new Date(e.start);
-      return d.getDate() === day && d.getHours() === hour;
+      return isSameDay(d, day) && d.getHours() === hour;
     });
   };
+
+  const upNext = [...events]
+    .filter((e) => new Date(e.start).getTime() >= today.getTime() - 86400000)
+    .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
+    .slice(0, 3);
 
   return (
     <div className="space-y-6">
@@ -58,13 +85,18 @@ export default function CalendarPage() {
         description="Meetings, calls and demos — your week, beautifully orchestrated."
         actions={
           <>
-            <Button variant="glass" size="sm">
+            <Button
+              variant="glass"
+              size="sm"
+              onClick={() => setSelected(new Date())}
+            >
               <Calendar className="h-4 w-4" />
               Today
             </Button>
             <Button variant="gradient" size="sm">
               <Plus className="h-4 w-4" />
-              New event
+              <span className="hidden sm:inline">New event</span>
+              <span className="sm:hidden">New</span>
             </Button>
           </>
         }
@@ -107,7 +139,7 @@ export default function CalendarPage() {
               <CardTitle className="text-sm">Up next</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              {events.slice(0, 3).map((e) => {
+              {upNext.map((e) => {
                 const t = typeMap[e.type];
                 return (
                   <div
@@ -138,59 +170,85 @@ export default function CalendarPage() {
         </div>
 
         <Card variant="glass" className="overflow-hidden">
-          <CardHeader className="flex-row items-center justify-between space-y-0 pb-3 border-b border-white/5">
+          <CardHeader className="flex-row items-center justify-between space-y-0 pb-3 border-b border-foreground/5">
             <div>
-              <CardTitle>Week of May 10 – May 16</CardTitle>
+              <CardTitle>{weekRangeLabel}</CardTitle>
               <p className="text-xs text-muted-foreground mt-1">{events.length} events scheduled</p>
             </div>
             <div className="flex items-center gap-1">
-              <Button size="icon-sm" variant="ghost"><ChevronLeft className="h-4 w-4" /></Button>
-              <Button size="icon-sm" variant="ghost"><ChevronRight className="h-4 w-4" /></Button>
+              <Button
+                size="icon-sm"
+                variant="ghost"
+                aria-label="Previous week"
+                onClick={() => {
+                  const d = new Date(selected);
+                  d.setDate(d.getDate() - 7);
+                  setSelected(d);
+                }}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
+              <Button
+                size="icon-sm"
+                variant="ghost"
+                aria-label="Next week"
+                onClick={() => {
+                  const d = new Date(selected);
+                  d.setDate(d.getDate() + 7);
+                  setSelected(d);
+                }}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
             </div>
           </CardHeader>
           <CardContent className="p-0 overflow-x-auto scrollbar-thin">
             <div className="min-w-[840px]">
-              <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-white/5">
+              <div className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-foreground/5">
                 <div className="p-3 text-[10px] uppercase tracking-widest text-muted-foreground font-semibold" />
-                {weekDays.map((day) => (
-                  <div
-                    key={day.d}
-                    className={cn(
-                      "p-3 text-center border-l border-white/5",
-                      day.d === 10 && "bg-primary/[0.05]"
-                    )}
-                  >
-                    <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
-                      {day.label}
-                    </p>
-                    <p
+                {weekDays.map((day) => {
+                  const isToday = isSameDay(day.date, today);
+                  return (
+                    <div
+                      key={day.date.toISOString()}
                       className={cn(
-                        "font-display text-lg font-bold mt-1",
-                        day.d === 10 && "text-primary"
+                        "p-3 text-center border-l border-foreground/5",
+                        isToday && "bg-primary/[0.05]"
                       )}
                     >
-                      {day.d}
-                    </p>
-                  </div>
-                ))}
+                      <p className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
+                        {day.label}
+                      </p>
+                      <p
+                        className={cn(
+                          "font-display text-lg font-bold mt-1",
+                          isToday && "text-primary"
+                        )}
+                      >
+                        {day.date.getDate()}
+                      </p>
+                    </div>
+                  );
+                })}
               </div>
 
               {hours.map((hour) => (
                 <div
                   key={hour}
-                  className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-white/5 min-h-[64px]"
+                  className="grid grid-cols-[60px_repeat(7,1fr)] border-b border-foreground/5 min-h-[64px]"
                 >
                   <div className="p-2 text-[10px] text-muted-foreground font-mono text-right">
                     {hour}:00
                   </div>
                   {weekDays.map((day) => {
-                    const evt = eventForCell(day.d, hour);
+                    const evt = eventForCell(day.date, hour);
+                    const isToday = isSameDay(day.date, today);
                     return (
                       <div
-                        key={day.d}
+                        key={day.date.toISOString()}
                         className={cn(
-                          "border-l border-white/5 p-1 relative",
-                          day.d === 10 && "bg-primary/[0.03]"
+                          "border-l border-foreground/5 p-1 relative",
+                          isToday && "bg-primary/[0.03]"
                         )}
                       >
                         {evt && (
@@ -241,7 +299,7 @@ export default function CalendarPage() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.04 }}
                   className={cn(
-                    "rounded-xl p-4 border-l-2 bg-white/[0.02] hover:bg-white/[0.04] transition-colors",
+                    "rounded-xl p-4 border-l-2 bg-foreground/[0.02] hover:bg-foreground/[0.04] transition-colors",
                     t.border
                   )}
                 >

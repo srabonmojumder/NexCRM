@@ -92,9 +92,12 @@ export default function LeadsPage() {
         description="Discover, qualify and convert your incoming opportunities."
         actions={
           <>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Download className="h-4 w-4" />
               Export
+            </Button>
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Export">
+              <Download className="h-4 w-4" />
             </Button>
             <Button variant="gradient" size="sm">
               <Plus className="h-4 w-4" />
@@ -104,7 +107,7 @@ export default function LeadsPage() {
         }
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Total leads", value: leads.length, accent: "text-foreground" },
           {
@@ -143,7 +146,7 @@ export default function LeadsPage() {
 
       <Card variant="glass">
         <CardContent className="p-0">
-          <div className="flex flex-col md:flex-row md:items-center gap-3 p-4 border-b border-white/5">
+          <div className="flex flex-col md:flex-row md:items-center gap-3 p-4 border-b border-foreground/5">
             <div className="flex-1 min-w-0">
               <Input
                 placeholder="Search by name, company or email..."
@@ -152,9 +155,9 @@ export default function LeadsPage() {
                 icon={<Search className="h-4 w-4" />}
               />
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <Select value={status} onValueChange={setStatus}>
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="flex-1 min-w-[120px] sm:flex-none sm:w-[140px]">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
                 <SelectContent>
@@ -166,7 +169,7 @@ export default function LeadsPage() {
                 </SelectContent>
               </Select>
               <Select value={source} onValueChange={setSource}>
-                <SelectTrigger className="w-[140px]">
+                <SelectTrigger className="flex-1 min-w-[120px] sm:flex-none sm:w-[140px]">
                   <SelectValue placeholder="Source" />
                 </SelectTrigger>
                 <SelectContent>
@@ -283,7 +286,7 @@ export default function LeadsPage() {
             </TableBody>
           </Table>
 
-          <div className="flex items-center justify-between p-4 border-t border-white/5 text-xs text-muted-foreground">
+          <div className="flex items-center justify-between p-4 border-t border-foreground/5 text-xs text-muted-foreground">
             <p>
               Showing <span className="font-semibold text-foreground">{filtered.length}</span> of{" "}
               <span className="font-semibold text-foreground">{leads.length}</span> leads

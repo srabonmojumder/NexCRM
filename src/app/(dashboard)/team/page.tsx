@@ -67,7 +67,7 @@ export default function TeamPage() {
         }
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Total members", value: team.length },
           { label: "Online now", value: team.filter((m) => m.status === "online").length, accent: "text-success" },
@@ -124,7 +124,7 @@ export default function TeamPage() {
               <div className="absolute top-0 right-0 h-24 w-24 bg-brand-gradient opacity-10 blur-3xl rounded-full" />
               <div className="flex items-start gap-4">
                 <div className="relative">
-                  <Avatar className="h-16 w-16 ring-2 ring-white/10">
+                  <Avatar className="h-16 w-16 ring-2 ring-foreground/10">
                     <AvatarImage src={member.avatar} alt={member.name} />
                     <AvatarFallback>{getInitials(member.name)}</AvatarFallback>
                   </Avatar>
@@ -165,7 +165,7 @@ export default function TeamPage() {
                 <Progress value={member.performance} className="h-1.5" />
               </div>
 
-              <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-white/5">
+              <div className="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-foreground/5">
                 <div>
                   <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                     Deals closed

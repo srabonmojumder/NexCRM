@@ -4,8 +4,8 @@ import { Logo } from "@/components/common/logo";
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className="relative min-h-screen flex">
-      <div className="pointer-events-none fixed inset-0 -z-10 bg-grid-pattern opacity-[0.04] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
-      <div className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 h-[800px] w-[1400px] -z-10 bg-radial-fade" />
+      <div className="pointer-events-none fixed inset-0 -z-10 bg-grid-pattern-light dark:bg-grid-pattern opacity-[0.5] dark:opacity-[0.04] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_70%)]" />
+      <div className="pointer-events-none fixed top-0 left-1/2 -translate-x-1/2 h-[400px] sm:h-[600px] lg:h-[800px] w-full sm:w-[1400px] -z-10 bg-radial-fade" />
 
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden p-10 flex-col">
         <Link href="/" className="z-10">

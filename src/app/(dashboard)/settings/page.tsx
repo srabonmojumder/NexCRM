@@ -87,7 +87,7 @@ export default function SettingsPage() {
                         "w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
                         isActive
                           ? "bg-primary/10 text-primary"
-                          : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                          : "text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                       )}
                     >
                       <Icon className="h-4 w-4" />
@@ -109,7 +109,7 @@ export default function SettingsPage() {
               </CardHeader>
               <CardContent className="space-y-5">
                 <div className="flex items-center gap-4">
-                  <Avatar className="h-16 w-16 ring-2 ring-white/10">
+                  <Avatar className="h-16 w-16 ring-2 ring-foreground/10">
                     <AvatarImage src={user?.avatar} alt={user?.name} />
                     <AvatarFallback>{getInitials(user?.name ?? "")}</AvatarFallback>
                   </Avatar>
@@ -222,7 +222,7 @@ export default function SettingsPage() {
                     ].map((t) => (
                       <button
                         key={t.id}
-                        className="rounded-xl border border-white/10 p-3 hover:border-primary/40 transition-colors text-left"
+                        className="rounded-xl border border-foreground/10 p-3 hover:border-primary/40 transition-colors text-left"
                       >
                         <div className={cn("h-20 w-full rounded-lg mb-2", t.preview)} />
                         <p className="text-sm font-medium">{t.label}</p>
@@ -313,7 +313,7 @@ export default function SettingsPage() {
                   <CardTitle>Payment method</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="rounded-xl border border-white/10 p-4 flex items-center gap-4">
+                  <div className="rounded-xl border border-foreground/10 p-4 flex items-center gap-4">
                     <div className="h-10 w-14 rounded-lg bg-gradient-to-br from-slate-700 to-slate-900 flex items-center justify-center font-bold text-xs text-white">
                       VISA
                     </div>
@@ -368,7 +368,7 @@ export default function SettingsPage() {
                   {integrations.map((int) => (
                     <div
                       key={int.name}
-                      className="rounded-xl border border-white/10 p-4 flex items-center gap-3 hover:border-primary/30 transition-colors"
+                      className="rounded-xl border border-foreground/10 p-4 flex items-center gap-3 hover:border-primary/30 transition-colors"
                     >
                       <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-primary/30 to-violet-500/30 flex items-center justify-center font-bold text-sm text-white">
                         {int.name[0]}
@@ -397,12 +397,12 @@ export default function SettingsPage() {
                 <CardDescription>Programmatically access your NexCRM data.</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div className="rounded-xl border border-white/10 p-4">
+                <div className="rounded-xl border border-foreground/10 p-4">
                   <div className="flex items-center justify-between mb-2">
                     <p className="text-sm font-semibold">Production key</p>
                     <Badge variant="success">Active</Badge>
                   </div>
-                  <code className="block rounded-lg bg-black/40 px-3 py-2 text-xs font-mono text-muted-foreground">
+                  <code className="block rounded-lg bg-foreground/[0.06] border border-foreground/10 px-3 py-2 text-xs font-mono text-foreground/80">
                     nx_live_••••••••••••••••••••••••••••u92r
                   </code>
                   <div className="flex items-center gap-2 mt-3">
@@ -436,7 +436,7 @@ function SettingRow({
   defaultChecked?: boolean;
 }) {
   return (
-    <div className="flex items-center justify-between gap-4 py-3 border-b border-white/5 last:border-0">
+    <div className="flex items-center justify-between gap-4 py-3 border-b border-foreground/5 last:border-0">
       <div>
         <p className="text-sm font-medium">{label}</p>
         <p className="text-xs text-muted-foreground mt-0.5">{description}</p>

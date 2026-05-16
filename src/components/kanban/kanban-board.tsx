@@ -52,7 +52,7 @@ export function KanbanBoard() {
 
   return (
     <div className="overflow-x-auto scrollbar-thin -mx-4 lg:-mx-6 px-4 lg:px-6 pb-2">
-      <div className="grid grid-flow-col auto-cols-[300px] gap-4 min-w-min">
+      <div className="grid grid-flow-col auto-cols-[260px] sm:auto-cols-[300px] gap-4 min-w-min">
         {stages.map((stage) => {
           const stageDeals = deals.filter((d) => d.stage === stage.id);
           const total = stageDeals.reduce((s, d) => s + d.value, 0);
@@ -64,7 +64,7 @@ export function KanbanBoard() {
               onDragLeave={() => setDragOverStage(null)}
               onDrop={onDrop(stage.id)}
               className={cn(
-                "flex flex-col rounded-2xl glass border-white/10 transition-all",
+                "flex flex-col rounded-2xl glass border-foreground/10 transition-all",
                 `bg-gradient-to-b ${stage.tint}`,
                 isOver && `ring-2 ${stage.ring} scale-[1.01]`
               )}
@@ -99,7 +99,7 @@ export function KanbanBoard() {
                 </AnimatePresence>
 
                 {stageDeals.length === 0 && (
-                  <div className="rounded-xl border border-dashed border-white/10 p-6 text-center text-xs text-muted-foreground">
+                  <div className="rounded-xl border border-dashed border-foreground/10 p-6 text-center text-xs text-muted-foreground">
                     Drop a deal here
                   </div>
                 )}
@@ -133,53 +133,53 @@ function KanbanCard({
         draggable
         onDragStart={onDragStart}
         className={cn(
-          "group cursor-grab active:cursor-grabbing rounded-xl bg-card/80 border border-white/10 p-3 shadow-sm hover:border-primary/30 hover:shadow-lg transition-all",
+          "group cursor-grab active:cursor-grabbing rounded-xl bg-card/80 border border-foreground/10 p-3 shadow-sm hover:border-primary/30 hover:shadow-lg transition-all",
           isDragging && "ring-2 ring-primary"
         )}
       >
-      <div className="flex items-start justify-between gap-2 mb-2">
-        <p className="text-sm font-semibold leading-snug line-clamp-2">{deal.title}</p>
-        <Button
-          variant="ghost"
-          size="icon-sm"
-          className="opacity-0 group-hover:opacity-100 -mr-1 -mt-1 shrink-0"
-        >
-          <MoreHorizontal className="h-3.5 w-3.5" />
-        </Button>
-      </div>
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <p className="text-sm font-semibold leading-snug line-clamp-2">{deal.title}</p>
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            className="opacity-0 group-hover:opacity-100 -mr-1 -mt-1 shrink-0"
+          >
+            <MoreHorizontal className="h-3.5 w-3.5" />
+          </Button>
+        </div>
 
-      <div className="flex items-center gap-2 mb-3">
-        <Avatar className="h-5 w-5">
-          <AvatarImage src={deal.clientAvatar} alt={deal.client} />
-          <AvatarFallback className="text-[8px]">{getInitials(deal.client)}</AvatarFallback>
-        </Avatar>
-        <p className="text-[11px] text-muted-foreground truncate">{deal.client}</p>
-      </div>
+        <div className="flex items-center gap-2 mb-3">
+          <Avatar className="h-5 w-5">
+            <AvatarImage src={deal.clientAvatar} alt={deal.client} />
+            <AvatarFallback className="text-[8px]">{getInitials(deal.client)}</AvatarFallback>
+          </Avatar>
+          <p className="text-[11px] text-muted-foreground truncate">{deal.client}</p>
+        </div>
 
-      <div className="flex items-center justify-between mb-2">
-        <p className="font-display text-base font-bold tabular-nums">
-          {formatCurrency(deal.value)}
-        </p>
-        <Badge variant="ghost" className="text-[10px]">
-          {deal.probability}%
-        </Badge>
-      </div>
+        <div className="flex items-center justify-between mb-2">
+          <p className="font-display text-base font-bold tabular-nums">
+            {formatCurrency(deal.value)}
+          </p>
+          <Badge variant="ghost" className="text-[10px]">
+            {deal.probability}%
+          </Badge>
+        </div>
 
-      <Progress value={deal.probability} className="h-1 mb-3" />
+        <Progress value={deal.probability} className="h-1 mb-3" />
 
-      <div className="flex items-center justify-between text-[10px] text-muted-foreground">
-        <span className="inline-flex items-center gap-1">
-          <Calendar className="h-3 w-3" />
-          {new Date(deal.closeDate).toLocaleDateString("en-US", {
-            month: "short",
-            day: "numeric",
-          })}
-        </span>
-        <Avatar className="h-5 w-5">
-          <AvatarImage src={deal.ownerAvatar} alt={deal.owner} />
-          <AvatarFallback className="text-[8px]">{getInitials(deal.owner)}</AvatarFallback>
-        </Avatar>
-      </div>
+        <div className="flex items-center justify-between text-[10px] text-muted-foreground">
+          <span className="inline-flex items-center gap-1">
+            <Calendar className="h-3 w-3" />
+            {new Date(deal.closeDate).toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+            })}
+          </span>
+          <Avatar className="h-5 w-5">
+            <AvatarImage src={deal.ownerAvatar} alt={deal.owner} />
+            <AvatarFallback className="text-[8px]">{getInitials(deal.owner)}</AvatarFallback>
+          </Avatar>
+        </div>
       </div>
     </motion.div>
   );

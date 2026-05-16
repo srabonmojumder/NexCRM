@@ -61,7 +61,7 @@ export default function LoginPage() {
 
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t border-white/10" />
+          <span className="w-full border-t border-foreground/10" />
         </div>
         <div className="relative flex justify-center text-xs uppercase tracking-widest">
           <span className="bg-background px-3 text-muted-foreground">or</span>

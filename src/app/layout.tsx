@@ -40,7 +40,7 @@ export default function RootLayout({
       className={`${sans.variable} ${display.variable} ${mono.variable}`}
       suppressHydrationWarning
     >
-      <body className="font-sans">
+      <body className="font-sans bg-background text-foreground">
         <Providers>{children}</Providers>
       </body>
     </html>

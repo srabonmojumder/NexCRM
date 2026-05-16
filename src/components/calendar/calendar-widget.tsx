@@ -28,8 +28,11 @@ export function CalendarWidget({
   selected?: Date;
   onSelect?: (d: Date) => void;
 }) {
-  const [cursor, setCursor] = useState(() => new Date(2026, 4, 1));
-  const today = new Date(2026, 4, 10);
+  const [cursor, setCursor] = useState(() => {
+    const base = selected ?? new Date();
+    return new Date(base.getFullYear(), base.getMonth(), 1);
+  });
+  const today = new Date();
   const days = useMemo(() => buildMonth(cursor), [cursor]);
   const monthLabel = cursor.toLocaleDateString("en-US", {
     month: "long",
@@ -98,7 +101,7 @@ export function CalendarWidget({
                   ? "bg-brand-gradient text-white shadow-lg shadow-primary/30"
                   : isToday
                     ? "bg-primary/10 text-primary ring-1 ring-primary/30"
-                    : "text-foreground hover:bg-white/5"
+                    : "text-foreground hover:bg-foreground/5"
               )}
             >
               {d.getDate()}

@@ -30,7 +30,7 @@ export function TopDeals() {
           initial={{ opacity: 0, x: -8 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: idx * 0.05 }}
-          className="group rounded-xl p-3 hover:bg-white/[0.03] transition-colors"
+          className="group rounded-xl p-3 hover:bg-foreground/[0.03] transition-colors"
         >
           <div className="flex items-center gap-3 mb-2">
             <Avatar className="h-8 w-8">

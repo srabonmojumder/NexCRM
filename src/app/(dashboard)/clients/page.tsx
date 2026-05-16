@@ -80,9 +80,12 @@ export default function ClientsPage() {
         description="Your customer book — relationships, revenue and health."
         actions={
           <>
-            <Button variant="glass" size="sm">
+            <Button variant="glass" size="sm" className="hidden sm:inline-flex">
               <Download className="h-4 w-4" />
               Export
+            </Button>
+            <Button variant="glass" size="icon-sm" className="sm:hidden" aria-label="Export">
+              <Download className="h-4 w-4" />
             </Button>
             <Button variant="gradient" size="sm">
               <Plus className="h-4 w-4" />
@@ -92,7 +95,7 @@ export default function ClientsPage() {
         }
       />
 
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           { label: "Total clients", value: clients.length, accent: "text-foreground" },
           { label: "Active", value: activeClients, accent: "text-success" },
@@ -132,7 +135,7 @@ export default function ClientsPage() {
           <Badge variant="ghost">{clients.length} accounts</Badge>
         </CardHeader>
         <CardContent>
-          <div className="h-[360px] rounded-xl overflow-hidden border border-white/5">
+          <div className="h-[260px] sm:h-[320px] lg:h-[360px] rounded-xl overflow-hidden border border-foreground/5">
             <WorldMapLoader />
           </div>
         </CardContent>
@@ -140,23 +143,23 @@ export default function ClientsPage() {
 
       <Tabs defaultValue="all" className="space-y-4">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-          <TabsList>
+          <TabsList className="overflow-x-auto scrollbar-thin">
             <TabsTrigger value="all">All clients</TabsTrigger>
             <TabsTrigger value="active">Active</TabsTrigger>
             <TabsTrigger value="trial">Trials</TabsTrigger>
             <TabsTrigger value="churned">Churned</TabsTrigger>
           </TabsList>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <Input
               placeholder="Search clients..."
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               icon={<Search className="h-4 w-4" />}
-              className="md:w-64"
+              className="flex-1 min-w-[160px] md:w-64 md:flex-none"
             />
             <Select value={tier} onValueChange={setTier}>
-              <SelectTrigger className="w-[130px]">
+              <SelectTrigger className="w-[110px] sm:w-[130px]">
                 <SelectValue placeholder="Tier" />
               </SelectTrigger>
               <SelectContent>
@@ -204,7 +207,7 @@ export default function ClientsPage() {
                   <Card variant="glass" className="p-5 card-hover group">
                     <div className="flex items-start justify-between mb-4">
                       <div className="relative">
-                        <Avatar className="h-12 w-12 ring-2 ring-white/10">
+                        <Avatar className="h-12 w-12 ring-2 ring-foreground/10">
                           <AvatarImage src={c.avatar} alt={c.name} />
                           <AvatarFallback>{getInitials(c.name)}</AvatarFallback>
                         </Avatar>
@@ -238,7 +241,7 @@ export default function ClientsPage() {
                         {c.location.city}
                       </span>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-white/5">
+                    <div className="grid grid-cols-2 gap-2 mt-4 pt-4 border-t border-foreground/5">
                       <div>
                         <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
                           MRR
@@ -272,11 +275,11 @@ export default function ClientsPage() {
             </div>
           ) : (
             <Card variant="glass">
-              <ul className="divide-y divide-white/5">
+              <ul className="divide-y divide-foreground/5">
                 {filtered.map((c) => (
                   <li
                     key={c.id}
-                    className="flex items-center gap-4 p-4 hover:bg-white/[0.03] transition-colors"
+                    className="flex items-center gap-4 p-4 hover:bg-foreground/[0.03] transition-colors"
                   >
                     <div className="relative">
                       <Avatar className="h-10 w-10">

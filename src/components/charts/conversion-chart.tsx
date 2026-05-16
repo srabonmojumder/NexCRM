@@ -21,20 +21,20 @@ const data = [
   { week: "W8", visit: 4.3, lead: 3.4, paid: 2.1 },
 ];
 
-const tickStyle = { fill: "rgba(255,255,255,0.5)", fontSize: 11 };
+const tickStyle = { fill: "hsl(var(--muted-foreground))", fontSize: 11 };
 
 export function ConversionChart() {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-        <CartesianGrid stroke="rgba(255,255,255,0.05)" vertical={false} />
+        <CartesianGrid stroke="hsl(var(--foreground) / 0.08)" vertical={false} />
         <XAxis dataKey="week" axisLine={false} tickLine={false} tick={tickStyle} />
         <YAxis axisLine={false} tickLine={false} tick={tickStyle} tickFormatter={(v) => `${v}%`} />
         <Tooltip
           content={({ active, payload, label }) => {
             if (!active || !payload?.length) return null;
             return (
-              <div className="glass-strong rounded-lg border-white/10 px-3 py-2 shadow-xl">
+              <div className="glass-strong rounded-lg border-foreground/10 px-3 py-2 shadow-xl">
                 <p className="text-xs font-semibold mb-1">{label}</p>
                 {payload.map((p) => (
                   <div key={p.dataKey as string} className="flex items-center gap-2 text-xs">

@@ -30,11 +30,11 @@ export function UpcomingMeetings({ limit = 4 }: { limit?: number }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: idx * 0.05 }}
             className={cn(
-              "relative flex gap-3 rounded-xl border border-white/5 bg-gradient-to-br p-3 transition-all hover:border-white/10",
+              "relative flex gap-3 rounded-xl border border-foreground/5 bg-gradient-to-br p-3 transition-all hover:border-foreground/10",
               c.bg
             )}
           >
-            <div className="flex flex-col items-center justify-center bg-white/5 rounded-lg px-2.5 py-1.5 text-center min-w-[52px]">
+            <div className="flex flex-col items-center justify-center bg-foreground/5 rounded-lg px-2.5 py-1.5 text-center min-w-[52px]">
               <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold">
                 {start.toLocaleDateString("en-US", { month: "short" })}
               </span>

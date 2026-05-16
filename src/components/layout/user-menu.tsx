@@ -30,8 +30,8 @@ export function UserMenu() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 transition-colors hover:bg-white/5">
-          <Avatar className="h-8 w-8 ring-2 ring-white/10">
+        <button className="flex items-center gap-2 rounded-full pl-1 pr-3 py-1 transition-colors hover:bg-foreground/5">
+          <Avatar className="h-8 w-8 ring-2 ring-foreground/10">
             <AvatarImage src={user.avatar} alt={user.name} />
             <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
           </Avatar>

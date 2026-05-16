@@ -126,11 +126,11 @@ export default function ActivityPage() {
                         day: "numeric",
                       })}
                     </Badge>
-                    <div className="flex-1 h-px bg-white/5" />
+                    <div className="flex-1 h-px bg-foreground/5" />
                     <span className="text-xs text-muted-foreground">{items.length} events</span>
                   </div>
 
-                  <ul className="relative pl-12 space-y-4 before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-px before:bg-white/10">
+                  <ul className="relative pl-12 space-y-4 before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-px before:bg-foreground/10">
                     {items.map((item, idx) => {
                       const k = kindMap[item.kind];
                       const Icon = k.icon;
@@ -150,7 +150,7 @@ export default function ActivityPage() {
                           >
                             <Icon className={cn("h-4 w-4", k.color)} />
                           </div>
-                          <div className="rounded-xl border border-white/5 bg-white/[0.02] p-4 hover:bg-white/[0.04] transition-colors">
+                          <div className="rounded-xl border border-foreground/5 bg-foreground/[0.02] p-4 hover:bg-foreground/[0.04] transition-colors">
                             <div className="flex items-start justify-between gap-3">
                               <div className="flex items-start gap-3 min-w-0">
                                 <Avatar className="h-8 w-8">

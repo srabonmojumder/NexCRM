@@ -30,7 +30,7 @@ export function FunnelChart() {
                 )}
               </span>
             </div>
-            <div className="relative h-7 rounded-lg bg-white/[0.04] overflow-hidden">
+            <div className="relative h-7 rounded-lg bg-foreground/[0.04] overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${width}%` }}

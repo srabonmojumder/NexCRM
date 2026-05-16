@@ -34,7 +34,7 @@ export function TrafficChart() {
                 if (!active || !payload?.length) return null;
                 const p = payload[0];
                 return (
-                  <div className="glass-strong rounded-lg border-white/10 px-3 py-2 shadow-xl">
+                  <div className="glass-strong rounded-lg border-foreground/10 px-3 py-2 shadow-xl">
                     <p className="text-xs font-semibold">{p.payload.name}</p>
                     <p className="text-xs text-muted-foreground">{p.value}%</p>
                   </div>

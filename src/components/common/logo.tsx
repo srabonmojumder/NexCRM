@@ -47,7 +47,7 @@ export function LogoMark({
       className={cn(
         "relative shrink-0 rounded-xl overflow-hidden",
         "bg-gradient-to-br from-[#0c1230] via-[#0a0e22] to-[#0a0e22]",
-        "ring-1 ring-white/10",
+        "ring-1 ring-foreground/10",
         markSize[size],
         className
       )}

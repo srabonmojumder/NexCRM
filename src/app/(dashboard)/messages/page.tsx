@@ -84,9 +84,9 @@ export default function MessagesPage() {
       />
 
       <Card variant="glass" className="overflow-hidden">
-        <div className="grid grid-cols-1 md:grid-cols-[320px_1fr] h-[calc(100vh-260px)] min-h-[560px]">
-          <aside className="border-r border-white/5 flex flex-col">
-            <div className="p-4 border-b border-white/5">
+        <div className="grid grid-cols-1 md:grid-cols-[280px_1fr] lg:grid-cols-[320px_1fr] h-[calc(100dvh-220px)] sm:h-[calc(100dvh-260px)] min-h-[520px]">
+          <aside className="border-r border-border flex flex-col min-w-0 overflow-hidden">
+            <div className="p-4 border-b border-border">
               <Input
                 placeholder="Search conversations..."
                 value={query}
@@ -94,7 +94,7 @@ export default function MessagesPage() {
                 icon={<Search className="h-4 w-4" />}
               />
             </div>
-            <ScrollArea className="flex-1">
+            <ScrollArea className="flex-1 min-w-0">
               <ul className="p-2 space-y-1">
                 {filtered.map((conv) => {
                   const isActive = conv.id === activeId;
@@ -106,7 +106,7 @@ export default function MessagesPage() {
                           "w-full flex items-start gap-3 rounded-xl p-3 text-left transition-colors",
                           isActive
                             ? "bg-primary/10 ring-1 ring-primary/20"
-                            : "hover:bg-white/[0.04]"
+                            : "hover:bg-foreground/[0.04]"
                         )}
                       >
                         <div className="relative shrink-0">
@@ -144,8 +144,8 @@ export default function MessagesPage() {
             </ScrollArea>
           </aside>
 
-          <section className="flex flex-col">
-            <header className="flex items-center justify-between px-5 py-4 border-b border-white/5">
+          <section className="flex flex-col min-w-0">
+            <header className="flex items-center justify-between px-5 py-4 border-b border-foreground/5">
               <div className="flex items-center gap-3">
                 <div className="relative">
                   <Avatar className="h-9 w-9">
@@ -215,7 +215,7 @@ export default function MessagesPage() {
               })}
             </div>
 
-            <footer className="border-t border-white/5 p-3">
+            <footer className="border-t border-foreground/5 p-3">
               <div className="glass-subtle rounded-2xl p-2 flex items-end gap-2">
                 <div className="flex items-center gap-0.5">
                   <Button size="icon-sm" variant="ghost"><Paperclip className="h-4 w-4" /></Button>

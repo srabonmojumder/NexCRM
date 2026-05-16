@@ -12,7 +12,7 @@ import {
 import { revenueSeries } from "@/data/mock";
 import { formatCompact, formatCurrency } from "@/lib/utils";
 
-const tickStyle = { fill: "rgba(255,255,255,0.5)", fontSize: 11 };
+const tickStyle = { fill: "hsl(var(--muted-foreground))", fontSize: 11 };
 
 export function RevenueChart() {
   return (
@@ -29,7 +29,7 @@ export function RevenueChart() {
             <stop offset="100%" stopColor="#10b981" stopOpacity={0} />
           </linearGradient>
         </defs>
-        <CartesianGrid stroke="rgba(255,255,255,0.05)" vertical={false} />
+        <CartesianGrid stroke="hsl(var(--foreground) / 0.08)" vertical={false} />
         <XAxis dataKey="month" axisLine={false} tickLine={false} tick={tickStyle} />
         <YAxis
           axisLine={false}
@@ -41,7 +41,7 @@ export function RevenueChart() {
           content={({ active, payload, label }) => {
             if (!active || !payload?.length) return null;
             return (
-              <div className="glass-strong rounded-lg border-white/10 px-3 py-2 shadow-xl">
+              <div className="glass-strong rounded-lg border-foreground/10 px-3 py-2 shadow-xl">
                 <p className="text-xs font-semibold text-foreground mb-1">{label}</p>
                 {payload.map((p) => (
                   <div key={p.dataKey as string} className="flex items-center gap-2 text-xs">

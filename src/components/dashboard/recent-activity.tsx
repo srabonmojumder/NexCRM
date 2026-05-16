@@ -46,7 +46,7 @@ export function RecentActivity({
   const visible = limit ? items.slice(0, limit) : items;
 
   return (
-    <ul className={cn("relative space-y-1", showTimeline && "before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-px before:bg-white/10")}>
+    <ul className={cn("relative space-y-1", showTimeline && "before:absolute before:left-[19px] before:top-2 before:bottom-2 before:w-px before:bg-foreground/10")}>
       {visible.map((item, idx) => {
         const k = kindMap[item.kind];
         const Icon = k.icon;
@@ -56,7 +56,7 @@ export function RecentActivity({
             initial={{ opacity: 0, x: -8 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: idx * 0.04, duration: 0.3 }}
-            className="relative flex gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-white/[0.03] group"
+            className="relative flex gap-3 rounded-xl px-3 py-2.5 transition-colors hover:bg-foreground/[0.03] group"
           >
             <div className="relative shrink-0">
               <Avatar className="h-10 w-10">

@@ -11,7 +11,7 @@ import {
 } from "recharts";
 import { channelPerformance } from "@/data/mock";
 
-const tickStyle = { fill: "rgba(255,255,255,0.5)", fontSize: 11 };
+const tickStyle = { fill: "hsl(var(--muted-foreground))", fontSize: 11 };
 
 export function ChannelChart() {
   return (
@@ -23,15 +23,15 @@ export function ChannelChart() {
             <stop offset="100%" stopColor="#6086ff" stopOpacity={0.6} />
           </linearGradient>
         </defs>
-        <CartesianGrid stroke="rgba(255,255,255,0.05)" vertical={false} />
+        <CartesianGrid stroke="hsl(var(--foreground) / 0.08)" vertical={false} />
         <XAxis dataKey="channel" axisLine={false} tickLine={false} tick={tickStyle} />
         <YAxis axisLine={false} tickLine={false} tick={tickStyle} />
         <Tooltip
-          cursor={{ fill: "rgba(255,255,255,0.04)" }}
+          cursor={{ fill: "hsl(var(--foreground) / 0.06)" }}
           content={({ active, payload, label }) => {
             if (!active || !payload?.length) return null;
             return (
-              <div className="glass-strong rounded-lg border-white/10 px-3 py-2 shadow-xl">
+              <div className="glass-strong rounded-lg border-foreground/10 px-3 py-2 shadow-xl">
                 <p className="text-xs font-semibold mb-0.5">{label}</p>
                 <p className="text-xs text-muted-foreground">
                   Deals: <span className="text-foreground font-semibold">{payload[0].value}</span>
