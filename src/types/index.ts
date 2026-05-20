@@ -84,6 +84,24 @@ export interface CalendarEvent {
   color?: string;
 }
 
+export type MessageAttachmentKind =
+  | "image"
+  | "video"
+  | "audio"
+  | "pdf"
+  | "excel"
+  | "word"
+  | "file";
+
+export interface MessageAttachment {
+  id: string;
+  kind: MessageAttachmentKind;
+  name: string;
+  size: number;
+  mimeType: string;
+  url: string;
+}
+
 export interface Message {
   id: string;
   conversationId: string;
@@ -93,6 +111,7 @@ export interface Message {
   content: string;
   timestamp: string;
   read: boolean;
+  attachments?: MessageAttachment[];
 }
 
 export interface Conversation {
