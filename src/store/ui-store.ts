@@ -15,6 +15,18 @@ function persistSidebarCookie(collapsed: boolean) {
   }; path=/; max-age=${ONE_YEAR_SECONDS}; samesite=lax`;
 }
 
+/**
+ * Read the persisted sidebar state on the client. Used for static hosting
+ * (Firebase) where there is no server to read the cookie during render — the
+ * value is applied after mount to avoid a hydration mismatch.
+ */
+export function readSidebarCookie(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie
+    .split("; ")
+    .some((c) => c === `${SIDEBAR_COOKIE_NAME}=1`);
+}
+
 interface UIState {
   sidebarCollapsed: boolean;
   commandOpen: boolean;

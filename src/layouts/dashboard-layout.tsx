@@ -1,23 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import { useUIStore } from "@/store/ui-store";
+import { useEffect } from "react";
+import { readSidebarCookie, useUIStore } from "@/store/ui-store";
 import { Sidebar } from "@/components/layout/sidebar";
 import { Topbar } from "@/components/layout/topbar";
 import { cn } from "@/lib/utils";
 
 export function DashboardLayout({
   children,
-  defaultCollapsed = false,
 }: {
   children: React.ReactNode;
-  defaultCollapsed?: boolean;
 }) {
-  // Seed the store with the server-resolved cookie value once, before the first
-  // paint, so SSR and the initial client render agree (no hydration flash).
-  useState(() => {
-    useUIStore.setState({ sidebarCollapsed: defaultCollapsed });
-  });
+  // The app is statically hosted (Firebase), so there is no server to read the
+  // persisted cookie during render. Apply it once after mount — the prerendered
+  // HTML uses the expanded default, avoiding any hydration mismatch.
+  useEffect(() => {
+    const collapsed = readSidebarCookie();
+    if (collapsed) useUIStore.setState({ sidebarCollapsed: true });
+  }, []);
 
   const collapsed = useUIStore((s) => s.sidebarCollapsed);
 
