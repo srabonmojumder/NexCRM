@@ -11,7 +11,8 @@ const Card = React.forwardRef<
     ref={ref}
     className={cn(
       "rounded-2xl border text-card-foreground transition-all",
-      variant === "default" && "bg-card border-border shadow-sm",
+      variant === "default" &&
+        "bg-card border-border/70 shadow-premium",
       variant === "glass" && "glass",
       variant === "subtle" && "glass-subtle",
       variant === "gradient" && "gradient-border bg-card/40 backdrop-blur-xl",

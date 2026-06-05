@@ -33,6 +33,19 @@
 
     --glass-bg: 255, 255, 255;
     --glass-border: 0, 0, 0;
+
+    /* Premium layered shadow scale (light) */
+    --shadow-color: 222 47% 28%;
+    --shadow-sm: 0 1px 2px -1px hsl(var(--shadow-color) / 0.06),
+      0 2px 6px -2px hsl(var(--shadow-color) / 0.08);
+    --shadow-md: 0 2px 4px -2px hsl(var(--shadow-color) / 0.06),
+      0 6px 16px -4px hsl(var(--shadow-color) / 0.1);
+    --shadow-lg: 0 4px 8px -4px hsl(var(--shadow-color) / 0.07),
+      0 14px 36px -10px hsl(var(--shadow-color) / 0.16);
+    --shadow-xl: 0 10px 20px -10px hsl(var(--shadow-color) / 0.12),
+      0 28px 60px -14px hsl(var(--shadow-color) / 0.22);
+    /* Inner top highlight that gives surfaces a lit edge */
+    --highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.65);
   }
 
   .dark {
@@ -64,6 +77,18 @@
 
     --glass-bg: 18, 22, 36;
     --glass-border: 255, 255, 255;
+
+    /* Premium layered shadow scale (dark — deeper, since surfaces sit on near-black) */
+    --shadow-color: 230 60% 2%;
+    --shadow-sm: 0 1px 2px -1px hsl(var(--shadow-color) / 0.4),
+      0 2px 6px -2px hsl(var(--shadow-color) / 0.5);
+    --shadow-md: 0 2px 4px -2px hsl(var(--shadow-color) / 0.45),
+      0 8px 20px -4px hsl(var(--shadow-color) / 0.55);
+    --shadow-lg: 0 6px 12px -6px hsl(var(--shadow-color) / 0.5),
+      0 18px 44px -10px hsl(var(--shadow-color) / 0.65);
+    --shadow-xl: 0 12px 24px -10px hsl(var(--shadow-color) / 0.55),
+      0 32px 70px -14px hsl(var(--shadow-color) / 0.75);
+    --highlight: inset 0 1px 0 0 rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -78,11 +103,20 @@
   }
   body {
     background-image: radial-gradient(
-        ellipse at 20% -10%,
-        rgba(99, 102, 241, 0.15),
-        transparent 50%
+        ellipse 70% 60% at 15% -10%,
+        rgba(99, 102, 241, 0.16),
+        transparent 55%
       ),
-      radial-gradient(ellipse at 80% 0%, rgba(139, 92, 246, 0.12), transparent 50%);
+      radial-gradient(
+        ellipse 60% 50% at 85% 0%,
+        rgba(139, 92, 246, 0.13),
+        transparent 55%
+      ),
+      radial-gradient(
+        ellipse 90% 60% at 50% 110%,
+        rgba(58, 96, 255, 0.08),
+        transparent 60%
+      );
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -97,6 +131,7 @@
     backdrop-filter: blur(18px) saturate(160%);
     -webkit-backdrop-filter: blur(18px) saturate(160%);
     border: 1px solid rgba(var(--glass-border), 0.08);
+    box-shadow: var(--shadow-md), var(--highlight);
   }
 
   .glass-strong {
@@ -104,6 +139,7 @@
     backdrop-filter: blur(24px) saturate(180%);
     -webkit-backdrop-filter: blur(24px) saturate(180%);
     border: 1px solid rgba(var(--glass-border), 0.1);
+    box-shadow: var(--shadow-lg), var(--highlight);
   }
 
   .glass-subtle {
@@ -111,6 +147,7 @@
     backdrop-filter: blur(12px) saturate(140%);
     -webkit-backdrop-filter: blur(12px) saturate(140%);
     border: 1px solid rgba(var(--glass-border), 0.06);
+    box-shadow: var(--shadow-sm), var(--highlight);
   }
 
   .gradient-text {
@@ -169,12 +206,30 @@
       0 8px 30px -8px hsl(var(--primary) / 0.4);
   }
 
+  /* Premium elevation utilities driven by the layered shadow scale */
+  .shadow-premium-sm {
+    box-shadow: var(--shadow-sm), var(--highlight);
+  }
+  .shadow-premium {
+    box-shadow: var(--shadow-md), var(--highlight);
+  }
+  .shadow-premium-lg {
+    box-shadow: var(--shadow-lg), var(--highlight);
+  }
+  .shadow-premium-xl {
+    box-shadow: var(--shadow-xl), var(--highlight);
+  }
+
   .card-hover {
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
   }
   .card-hover:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 12px 40px -12px hsl(var(--primary) / 0.25);
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl), var(--highlight),
+      0 18px 50px -16px hsl(var(--primary) / 0.28);
   }
 }
 
